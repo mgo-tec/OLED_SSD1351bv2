@@ -1,3 +1,4 @@
+#関数Scroller_8x16Dot_Replace2 が抜けていました。大変失礼しました。再アップしました。
 # OLED_SSD1351bv2
 Arduino IDE library for operating the Adafruit OLED(SSD1351) in ESP-WROOM-02(ESP8266).  
 Beta ver2.0
