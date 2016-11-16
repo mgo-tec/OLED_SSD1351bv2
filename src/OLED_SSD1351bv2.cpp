@@ -565,6 +565,35 @@ void OLED_SSD1351bv2::Scroller_8x16Dot_Replace(uint8_t drection, uint8_t next_bu
     }
   }
 }
+//*********電光掲示板風スクロール関数 8x16ドット 16文字用********************
+void OLED_SSD1351bv2::Scroller_8x16Dot_Replace2(uint8_t disp_char_max, uint8_t next_buff1[][16], uint8_t scl_buff1[][16], uint8_t* Orign_buff1, uint8_t font_buf1[][16], uint16_t Length, uint8_t* scl_cnt1, uint16_t* sj_cnt1){
+  int8_t i, j;
+  
+  if(*scl_cnt1 == 8){
+    *scl_cnt1 = 0;
+    (*sj_cnt1)++;
+    if(*sj_cnt1 >= Length){
+      *sj_cnt1 = 0;
+    }
+    for(i=0; i<16; i++) Orign_buff1[i] = font_buf1[*sj_cnt1][i];
+  }
+
+  for(i=15; i>=0; i--){ //まず、一番左側文字をビットシフト
+    next_buff1[disp_char_max-1][i] = ( next_buff1[disp_char_max-1][i] | ( scl_buff1[disp_char_max-1][i] & B10000000 ));
+    scl_buff1[disp_char_max-1][i] = scl_buff1[disp_char_max-1][i]<<1;
+    scl_buff1[disp_char_max-1][i] = ( scl_buff1[disp_char_max-1][i] | (( Orign_buff1[i] & B10000000 )>>7));
+    Orign_buff1[i] = Orign_buff1[i]<<1;
+  }
+  for(i=disp_char_max-2; i>=0; i--){ //次にその他文字をビットシフト
+    for(j=15; j>=0; j--){
+      next_buff1[i][j] = ( next_buff1[i][j] | ( scl_buff1[i][j] & B10000000 ));
+      scl_buff1[i][j] = scl_buff1[i][j]<<1;
+      scl_buff1[i][j] = ( scl_buff1[i][j] | (( next_buff1[i+1][j] & B10000000 )>>7));
+      next_buff1[i+1][j] = next_buff1[i+1][j]<<1;
+    }
+  }
+  (*scl_cnt1)++;
+}
 //****************SSD1351 RGBコントラスト*************************************************
 void OLED_SSD1351bv2::SSD1351bv2_RGBcontrast(uint8_t Red, uint8_t Green, uint8_t Blue){
   writeCommand(0xC1); //Set Contrast

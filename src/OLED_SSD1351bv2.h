@@ -52,7 +52,8 @@ public:
   void SSD1351bv2_RAM_Hscrolle(uint8_t StartY, uint8_t EndY, uint8_t Interval, uint8_t direction);
   void SSD1351bv2_RAM_Vscrolle(uint8_t StartY, uint8_t OffsetY);
   void Scroller_8x16Dot_Replace(uint8_t drection, uint8_t next_buff1[][16], uint8_t scl_buff1[][16], uint8_t* Orign_buff1);
-  void SSD1351bv2_RGBcontrast(uint8_t Red, uint8_t Green, uint8_t Blue);
+  void Scroller_8x16Dot_Replace2(uint8_t disp_char_max, uint8_t next_buff1[][16], uint8_t scl_buff1[][16], uint8_t* Orign_buff1, uint8_t font_buf1[][16], uint16_t Length, uint8_t* scl_cnt1, uint16_t* sj_cnt1);
+	void SSD1351bv2_RGBcontrast(uint8_t Red, uint8_t Green, uint8_t Blue);
   void SSD1351bv2_1pixel_DisplayOut(uint8_t x, uint8_t y, uint8_t Red, uint8_t Green, uint8_t Blue);
   void SSD1351bv2_1pixel_DisplayOut262(uint8_t x, uint8_t y, uint8_t Red, uint8_t Green, uint8_t Blue);
   void SSD1351bv2_lineH(uint8_t x1, uint8_t x2, uint8_t y, uint8_t Red, uint8_t Green, uint8_t Blue);
